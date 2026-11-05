@@ -40,13 +40,16 @@ interface StadkamerPage {
   meta?: { pagination?: { totalPages?: number } };
 }
 
-/** Doelgroepcategorieën en -tags van Stadkamer (ID → hint). Zie meta.filters van de API. */
+/**
+ * Doelgroepcategorieën en -tags van Stadkamer (ID → hint). Zie meta.filters van de API.
+ * "0+" (65499) bewust niet: Stadkamer gebruikt dat ook voor lezingen voor iedereen ("vanaf 0"), en dan
+ * zou bv. een lezing over Noord-Korea bij Kinderen komen. Echt kinderaanbod heeft ook Kinderen of Voor de kleinsten.
+ */
 export const DEFAULT_HINT_CATEGORIES: Record<string, string> = {
   '63723': 'Kinderen',
   '841101': 'Kinderen (basisschool)',
   '1095741': 'Kinderen (0-4 jaar)',
   '67575': 'Jeugd',
-  '65499': '0+',
   '65547': '6+',
   '66852': '8 - 12 jaar',
   '1403803': '8+',
