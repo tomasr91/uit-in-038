@@ -10,6 +10,8 @@
  *    overgenomen; die dient alleen voor de indeling.
  *  - Doelgroep en leeftijd staan niet in de lijst. Daarom halen we per doelgroepcategorie en -tag de
  *    lijst nog eens op (klein) en geven we de naam als hint mee ("Kinderen", "6+", "Voor de kleinsten").
+ *  - Soort: de thematags (MAAKpunt, Lezen, Cultuur, Doen, Leren) halen we op dezelfde manier op; de eerste
+ *    in KIND_TAGS wordt het soortlabel. MAAKpunt geeft ook de hint "Workshop".
  *  - Spreekuren (Taalpunt, DigiHulp, Informatiepunt …) zijn geen uitje en worden overgeslagen.
  */
 import { fetchText } from '../../collector/lib/http.ts';
@@ -57,6 +59,21 @@ export const DEFAULT_HINT_TAGS: Record<string, string> = {
   '67578': '4 - 12 jaar',
   '887382': 'Voor jongeren',
 };
+/** Thematags (ID → soortlabel), in volgorde van voorkeur; extra hints per label in KIND_HINTS. */
+export const DEFAULT_KIND_TAGS: [string, string][] = [
+  ['63726', 'Maken'],
+  ['64539', 'Lezen'],
+  ['66762', 'Cultuur'],
+  ['1333976', 'Doen'],
+  ['62499', 'Leren'],
+];
+const KIND_HINTS: Record<string, string[]> = { Maken: ['Workshop'] };
+
+/** Kiest het soortlabel uit de gevonden thema's (volgorde van DEFAULT_KIND_TAGS). */
+export function stadkamerKind(labels: string[], order: string[] = DEFAULT_KIND_TAGS.map(([, l]) => l)): string | undefined {
+  return [...labels].sort((a, b) => order.indexOf(a) - order.indexOf(b))[0];
+}
+
 export const DEFAULT_EXCLUDE = ['spreekuur', 'taalcaf', 'taalpunt', 'digihulp', 'informatiepunt', 'oefenpunt', 'klik ?& ?tik', 'digicaf', 'belastingaangifte'];
 
 /** Vestiging zoals de app hem kent (zie city/venues.ts). */
@@ -137,6 +154,14 @@ export const stadkamer: SourceAdapter = {
     const add = (id: number, h: string) => hints.set(id, (hints.get(id) ?? new Set()).add(h));
     for (const [id, h] of Object.entries(hintCats)) for (const it of await fetchAll({ departments, categories: id }, 5)) add(it.id, h);
     for (const [id, h] of Object.entries(hintTags)) for (const it of await fetchAll({ departments, tags: id }, 5)) add(it.id, h);
+    const kindTags = (o.kindTags as [string, string][] | undefined) ?? DEFAULT_KIND_TAGS;
+    const kinds = new Map<number, string[]>();
+    for (const [id, label] of kindTags) {
+      for (const it of await fetchAll({ departments, tags: id }, 5)) {
+        kinds.set(it.id, [...(kinds.get(it.id) ?? []), label]);
+        for (const h of KIND_HINTS[label] ?? []) add(it.id, h);
+      }
+    }
 
     const seen = new Set<number>();
     const events: RawEvent[] = [];
@@ -148,7 +173,9 @@ export const stadkamer: SourceAdapter = {
         skipped++;
         continue;
       }
-      const raw = stadkamerToRaw(it, [...(hints.get(it.id) ?? [])], ctx.today, ctx.nowIso);
+      const found = stadkamerToRaw(it, [...(hints.get(it.id) ?? [])], ctx.today, ctx.nowIso);
+      const kind = stadkamerKind(kinds.get(it.id) ?? [], kindTags.map(([, l]) => l));
+      const raw = found && kind ? { ...found, kind } : found;
       if (raw && (raw.end ?? raw.start).slice(0, 10) >= ctx.today && raw.start.slice(0, 10) <= ctx.until) events.push(raw);
     }
     return { events, coverage: { from: ctx.today, to: ctx.until }, notes: `${events.length} activiteiten van ${seen.size} (${skipped} spreekuren overgeslagen)` };

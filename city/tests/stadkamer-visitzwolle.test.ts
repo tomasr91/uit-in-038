@@ -1,6 +1,6 @@
 /** Stadkamer en VisitZwolle (synthetische gegevens in de vorm van de echte bron; alles hier is ⚠️ TESTDATA). */
 import { describe, expect, it } from 'vitest';
-import { stadkamerToRaw, stadkamerVenue, type StadkamerItem } from '../adapters/stadkamer';
+import { stadkamerKind, stadkamerToRaw, stadkamerVenue, type StadkamerItem } from '../adapters/stadkamer';
 import { dayPath, parseVzList, splitLocation, vzToRaw, withCategories } from '../adapters/visitzwolle';
 import { normalize } from '../../collector/normalize';
 
@@ -37,6 +37,14 @@ const card = (id: string, title: string, dt: string, loc: string, times: string)
     <div class="body"><h3 class="title t4 l"> ${title}</h3>
       <dl class="struct proplist"><dt>pin</dt><dd class="location">${loc}</dd><dt>tijd</dt><dd>${times}</dd></dl></div></a></article>`;
 const page = (cards: string) => `<div class="dayhead"><h3 class="title">vandaag</h3></div><ul class="struct boxgrid"><li>${cards}</li></ul>`;
+
+describe('Stadkamer soort', () => {
+  it('kiest het eerste thema als soortlabel', () => {
+    expect(stadkamerKind(['Leren', 'Maken'])).toBe('Maken');
+    expect(stadkamerKind(['Leren', 'Cultuur'])).toBe('Cultuur');
+    expect(stadkamerKind([])).toBeUndefined();
+  });
+});
 
 describe('VisitZwolle', () => {
   it('leest kaarten: id, titel, tijden en plek', () => {
