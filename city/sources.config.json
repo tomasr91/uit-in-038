@@ -71,7 +71,8 @@
       "options": {
         "$comment": "Theater De Spiegel en Schouwburg Odeon: programma-API van zwolsetheaters.nl (POST, zoals de site zelf). Zie city/adapters/zwolse-theaters.ts.",
         "limit": 100
-      }
+      },
+      "name": "Zwolse Theaters (De Spiegel en Odeon)"
     }
   ]
 }
