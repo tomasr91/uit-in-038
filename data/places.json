@@ -1,9 +1,139 @@
 {
   "meta": {
-    "collectedAt": "2026-11-05T00:00:00Z",
-    "collectedBy": "Nog leeg",
-    "method": "Vaste plekken (musea, speeltuinen, zwembaden …): per plek opgezocht en gecontroleerd via de eigen site.",
-    "note": "Geen agenda-items: plekken waar je zonder afspraak heen kunt. In de app onder het tabblad Altijd. Voorbeelden van de vorm: zie data/places.json van Uit in 030."
+    "collectedAt": "2026-11-05T12:00:00Z",
+    "collectedBy": "Claude (webonderzoek)",
+    "method": "Vaste plekken: per plek opgezocht en gecontroleerd via de eigen site, museum.nl, Kidsproof, Go-kids, Fijnuit en VisitZwolle. Alleen wat bevestigd is; bij tegenstrijdige openingstijden of adressen is dat veld weggelaten. Openingstijden altijd nakijken bij de bron.",
+    "note": "Geen agenda-items: plekken waar je zonder afspraak heen kunt. In de app onder het tabblad Altijd."
   },
-  "places": []
+  "places": [
+    {
+      "id": "schellerhoeve",
+      "name": "Wijkboerderij De Schellerhoeve",
+      "kind": "Natuur & dieren",
+      "audiences": ["kinderen", "gezin"],
+      "indoor": "buiten",
+      "price": "gratis",
+      "open": "ma–vr 9–17, za–zo 14–16",
+      "address": "Schellerpark 101, 8017 NZ Zwolle",
+      "locality": "Schelle",
+      "url": "https://www.kidsproof.nl/Zwolle/uitje/Wijkboerderij-de-Schellerhoeve-Boerderij-de-Schellerhoeve/",
+      "summary": "Wijkboerderij aan de rand van Zwolle-Zuid met dieren en tuinen; gratis binnenlopen."
+    },
+    {
+      "id": "doepark-nooterhof",
+      "name": "Doepark Nooterhof",
+      "kind": "Spelen buiten",
+      "audiences": ["kinderen", "gezin"],
+      "indoor": "buiten",
+      "price": "gratis",
+      "address": "Goertjesweg 1, 8013 PA Zwolle",
+      "locality": "Wezenlanden",
+      "url": "https://go-kids.nl/zwolle/erop-uit/doepark-nooterhof",
+      "summary": "Natuurpark met waterspeeltuin, blotevoetenpad, speurtochten en een theehuis in een Earthship. Niet elke dag open: kijk de dagen na bij de bron."
+    },
+    {
+      "id": "kinderboerderij-wezenlanden",
+      "name": "Kinderboerderij De Wezenlanden",
+      "kind": "Natuur & dieren",
+      "audiences": ["kinderen", "gezin"],
+      "indoor": "buiten",
+      "price": "gratis",
+      "address": "Almelose Kanaal 33, Zwolle",
+      "locality": "Wezenlanden",
+      "url": "https://go-kids.nl/zwolle/erop-uit/kinderboerderij-de-wezenlanden",
+      "summary": "Grote kinderboerderij in het Wezenlandenpark met speeltuin; via een tunnel verbonden met de Nooterhof."
+    },
+    {
+      "id": "peperbus",
+      "name": "Peperbus (Onze Lieve Vrouwetoren)",
+      "kind": "Rondleiding",
+      "audiences": ["gezin", "kinderen", "volwassenen"],
+      "indoor": "beide",
+      "price": "betaald",
+      "open": "ma–za",
+      "address": "Ossenmarkt, 8011 MS Zwolle",
+      "locality": "Binnenstad",
+      "url": "http://www.peperbus-zwolle.nl/",
+      "summary": "Klim de toren van Zwolle op tot de omloop op 51 meter en kijk uit over de hele stad."
+    },
+    {
+      "id": "museum-de-fundatie",
+      "name": "Museum de Fundatie",
+      "kind": "Museum",
+      "audiences": ["gezin", "volwassenen"],
+      "indoor": "binnen",
+      "price": "betaald",
+      "open": "di–zo 11–17",
+      "address": "Blijmarkt 20, 8011 NE Zwolle",
+      "locality": "Binnenstad",
+      "url": "https://www.museumdefundatie.nl",
+      "summary": "Kunstmuseum in het oude paleis van justitie met de opvallende koepel op het dak."
+    },
+    {
+      "id": "anno-stadsmuseum",
+      "name": "ANNO Stadsmuseum Zwolle",
+      "kind": "Museum",
+      "audiences": ["gezin", "kinderen", "volwassenen"],
+      "indoor": "binnen",
+      "price": "betaald",
+      "open": "di–zo 10–17",
+      "address": "Melkmarkt 41, 8011 MB Zwolle",
+      "locality": "Binnenstad",
+      "url": "https://en.visitzwolle.com/see-and-do/day%20out/41602-anno/",
+      "summary": "Stadsmuseum over de verhalen en geschiedenis van Zwolle, met een kinderroute; de begane grond is gratis."
+    },
+    {
+      "id": "sinterklaasmuseum",
+      "name": "Sinterklaasmuseum",
+      "kind": "Museum",
+      "audiences": ["kinderen", "gezin"],
+      "indoor": "binnen",
+      "price": "betaald",
+      "address": "Assendorperstraat 82, 8012 CB Zwolle",
+      "locality": "Assendorp",
+      "url": "https://www.fietsnetwerk.nl/en/places/the-saint-nicholas-museum-zwolle/",
+      "summary": "Piepklein museum vol Sinterklaasspullen, het hele jaar te bezoeken voor een kleine entree."
+    },
+    {
+      "id": "monkey-town-zwolle",
+      "name": "Monkey Town Zwolle",
+      "kind": "Spelen binnen",
+      "audiences": ["kinderen", "gezin"],
+      "indoor": "binnen",
+      "price": "betaald",
+      "open": "ma–vr 9–18, za–zo 10–18",
+      "address": "Grote Voort 13, 8041 AM Zwolle",
+      "locality": "Zwolle",
+      "url": "https://www.fijnuit.nl/2888/monkey-town-zwolle",
+      "ageLabel": "1 t/m 12 jaar",
+      "officialMinMonths": 12,
+      "officialMaxMonths": 155,
+      "summary": "Binnenspeelparadijs met klimtoestellen, glijbanen, trampolines en een aparte hoek voor de kleinsten."
+    },
+    {
+      "id": "funzone-zwolle",
+      "name": "FunZone Zwolle",
+      "kind": "Sport",
+      "audiences": ["kinderen", "gezin"],
+      "indoor": "binnen",
+      "price": "betaald",
+      "address": "Ossenkamp 3, 8024 AG Zwolle",
+      "locality": "Zwolle",
+      "url": "https://www.funzone.nl",
+      "summary": "Trampolinepark met lasergame; ouders kijken mee vanaf het horecaplein."
+    },
+    {
+      "id": "openluchtbad-zwolle",
+      "name": "Openluchtbad Zwolle",
+      "kind": "Zwemmen",
+      "audiences": ["gezin", "kinderen", "volwassenen"],
+      "indoor": "buiten",
+      "price": "betaald",
+      "open": "alleen in de zomer",
+      "address": "Ceintuurbaan 1, 8023 XK Zwolle",
+      "locality": "Wipstrik",
+      "url": "https://www.kidsproof.nl/zwolle/?p=34347",
+      "summary": "Monumentaal openluchtzwembad uit 1933 met meerdere baden; alleen open in het zomerseizoen."
+    }
+  ]
 }
