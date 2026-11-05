@@ -1,3 +1,20 @@
+# Uit in 038 — gezinsagenda voor Zwolle-Zuid en Zwolle
+
+Wat er de komende maanden te doen is in Zwolle, voor de kinderen (gefilterd op hun leeftijd op de dag zelf) en voor volwassenen, met Zwolle-Zuid als thuiswijk. Installeerbaar als app op je telefoon, zonder account.
+
+- **App:** https://tomasr91.github.io/uit-in-038/ (op je telefoon: *Zet op beginscherm*)
+- **Motor:** [uit-core](https://github.com/tomasr91/uit-core), dezelfde als [Uit in 030](https://github.com/tomasr91/wattedoeninutrecht). Alles van Zwolle staat in `city/`; de rest (zie `core.json`) wordt bijgewerkt via de workflow *Motor bijwerken*.
+- **Bronnen:** zie [city/BRONNEN.md](city/BRONNEN.md).
+- **Onderhoud door Claude:** zie [docs/GEPLANDE-TAKEN.md](docs/GEPLANDE-TAKEN.md).
+
+Lokaal: `npm install`, `npm run dev` (app), `npm run collect` (bronnen ophalen), `npm test`.
+
+## Privacy
+
+De app slaat niets op een server op. Het gezinsprofiel (namen, geboortedata, thuisadres) en bewaarde activiteiten staan alleen in de browser op je telefoon.
+
+---
+
 # uit-core — maak een uitagenda voor je eigen stad
 
 Een persoonlijke, mobiele gezinsagenda: wat er de komende maanden te doen is in jouw stad, voor de kinderen (gefilterd op hun leeftijd op de dag zelf) en voor volwassenen. Installeerbaar als app op je telefoon, zonder account, zonder server, gratis te hosten op GitHub Pages.

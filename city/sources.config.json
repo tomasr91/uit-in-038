@@ -1,11 +1,17 @@
 {
-  "$comment": "Bronnen voor de nachtelijke update. Zet 'enabled' op false om een bron uit te schakelen. Bronnen met type ical, jsonld of tribe werken zonder code (zie collector/adapters/generic.ts); eigen adapters staan in city/adapters/index.ts.",
+  "$comment": "Bronnen voor de nachtelijke update van Uit in 038. Zet 'enabled' op false om een bron uit te schakelen. Bronnen met type ical, jsonld of tribe werken zonder code; eigen adapters staan in city/adapters/index.ts. Uitleg per bron: city/BRONNEN.md.",
   "windowMonths": 3,
   "windowMarginDays": 14,
   "maxDetailPagesPerSource": 400,
   "pruneExpiredAfterDays": 60,
   "$diagnoseUrls": "Standaardlijst voor de workflow Bronnen diagnose (collector/diagnose.ts zonder argumenten).",
-  "diagnoseUrls": [],
+  "diagnoseUrls": [
+    "https://www.hedon-zwolle.nl/",
+    "https://www.pathe.nl/nl/bioscopen/pathe-zwolle",
+    "https://www.visitzwolle.com/agenda/",
+    "https://stadkamer.nl/agenda",
+    "https://www.zwolsetheaters.nl/programma"
+  ],
   "sources": [
     {
       "id": "handmatig",
@@ -19,30 +25,19 @@
     },
     {
       "id": "pathe",
-      "enabled": false,
-      "$comment": "Kinderfilms en Kleuterbios. Zet de slug van jouw bioscoop uit de URL pathe.nl/nl/bioscopen/<slug> in cinemas.",
-      "homepage": "https://www.pathe.nl/nl/bioscopen",
+      "enabled": true,
+      "homepage": "https://www.pathe.nl/nl/bioscopen/pathe-zwolle",
+      "description": "Kinderfilms (keuring t/m 12, gefilterd op de leeftijd van de kinderen) en Kleuterbios in Pathé Zwolle.",
       "options": {
-        "cinemas": [],
-        "localities": {},
+        "cinemas": ["pathe-zwolle"],
+        "localities": { "pathe-zwolle": "Zwolle" },
         "ratings": ["al", "-6ans", "-9ans", "-12ans"]
       }
     },
     {
-      "id": "voorbeeld-ical",
-      "type": "ical",
-      "name": "Voorbeeld: agenda met iCal-feed",
-      "homepage": "https://example.org/agenda/",
-      "enabled": false,
-      "options": { "urls": ["https://example.org/?ical=1"], "locality": "Voorbeeldstad" }
-    },
-    {
-      "id": "voorbeeld-wordpress",
-      "type": "tribe",
-      "name": "Voorbeeld: WordPress met The Events Calendar",
-      "homepage": "https://example.org/agenda/",
-      "enabled": false,
-      "options": { "site": "https://example.org", "locality": "Voorbeeldstad" }
+      "id": "hedon",
+      "enabled": true,
+      "$comment": "Concerten, clubavonden en shows van Hedon, uit de programmadata van de homepage (zie city/adapters/hedon.ts)."
     }
   ]
 }

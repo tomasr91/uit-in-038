@@ -1,77 +1,86 @@
 /**
- * Stadsprofiel — VUL DIT IN VOOR JOUW STAD.
+ * Stadsprofiel: alles wat deze app tot "Uit in 038" maakt.
  *
- * Alles wat de app tot de agenda van jouw stad maakt, staat in de map city/:
- *  - config.ts            dit bestand: naam, kleuren, thuiswijk, zones en teksten
- *  - venues.ts            bekende locaties met coördinaten (mag leeg beginnen)
- *  - Landmark.tsx         het herkenningspunt in de kop van de app (eigen tekening)
- *  - sources.config.json  welke bronnen de nachtelijke update ophaalt
- *  - adapters/            eigen code voor bronnen zonder feed (optioneel)
- *  - claude/              stadsdelen voor de Claude-skills (optioneel)
- *  - BRONNEN.md           uitleg per bron
- *
- * Dit bestand bevat alleen gegevens (geen React, geen Node), zodat app,
- * verzamellaag, tests en vite.config.ts het kunnen importeren.
- * Zie src/domain/city-types.ts voor de betekenis van elk veld.
+ * De rest van de code (app, domeinlogica, verzamellaag) is de motor uit-core en leest
+ * stad-specifieke waarden alleen hier. Zie src/domain/city-types.ts voor de velden.
  */
 import type { CityConfig } from '../src/domain/city-types';
 
 export const CITY: CityConfig = {
-  // Korte ID, alleen kleine letters.
-  id: 'voorbeeldstad',
+  id: 'zwolle',
 
   app: {
-    name: 'Uit in Voorbeeldstad',
+    name: 'Uit in 038',
     tagline: 'Ontdek. Kies. Ga.',
-    description: 'Persoonlijke gezinsagenda voor Voorbeeldstad en omgeving.',
-    manifestDescription: 'Wat te doen in Voorbeeldstad en omgeving, voor kinderen en volwassenen.',
-    // Na het publiceren: https://<gebruikersnaam>.github.io/<repository>/
-    url: 'https://example.org/',
-    // <gebruikersnaam>/<repository> van jouw stadsrepo
-    repository: 'gebruikersnaam/uit-in-voorbeeldstad',
+    description: 'Persoonlijke gezinsagenda voor Zwolle-Zuid, Zwolle en omgeving.',
+    manifestDescription: 'Wat te doen in Zwolle en omgeving, voor kinderen en volwassenen.',
+    url: 'https://tomasr91.github.io/uit-in-038/',
+    repository: 'tomasr91/uit-in-038',
   },
 
+  /** Diepgroen, zodat Uit in 038 zich op het beginscherm onderscheidt van Uit in 030. */
   theme: {
-    brand: '#24506e',
-    brandInk: '#1f4864',
-    brandSoft: '#e4edf4',
-    headBg: '#1f3a4d',
-    headMuted: '#c3d3df',
-    headLandmark: '#cfe0ec',
-    dayInk: '#1f3a4d',
+    brand: '#25594f',
+    brandInk: '#1f4f46',
+    brandSoft: '#e2efec',
+    headBg: '#1d3b36',
+    headMuted: '#c2d8d3',
+    headLandmark: '#d3e6e1',
+    dayInk: '#1d3b36',
   },
 
-  cityName: 'Voorbeeldstad',
-  // Middelpunt van de stad (bv. het centrale plein) en een ruwe straal van de gemeente in km.
-  center: { lat: 52.37, lon: 5.22 },
+  cityName: 'Zwolle',
+  /** Grote Markt. */
+  center: { lat: 52.5125, lon: 6.0925 },
   cityRadiusKm: 5,
 
-  // Thuiswijk: krijgt voorrang bij kinderactiviteiten en is het standaard vertrekpunt voor afstanden.
-  // Wil je geen aparte wijk, neem dan het centrum en een kleine straal.
+  /**
+   * Thuiswijk Zwolle-Zuid: de CBS-wijken Schelle (50) en Ittersum (51), ten zuiden van de IJsselallee.
+   * Vertrekpunt: winkelcentrum Zwolle-Zuid (Van der Capellenstraat/Oldeneelallee), benaderd.
+   */
   home: {
-    zoneId: 'thuiswijk',
-    name: 'de thuiswijk',
-    label: 'Centrum van de thuiswijk',
-    lat: 52.38,
-    lon: 5.2,
-    // Wijken en kernen (kleine letters) die bij de thuiswijk horen.
-    localities: ['thuiswijk'],
+    zoneId: 'zwolle-zuid',
+    name: 'Zwolle-Zuid',
+    label: 'Winkelcentrum Zwolle-Zuid',
+    lat: 52.4935,
+    lon: 6.1065,
+    localities: [
+      'zwolle-zuid',
+      'zwolle zuid',
+      'schelle',
+      'schellerhoek',
+      'schellerbroek',
+      'schellerlanden',
+      'oldeneel',
+      'oldenelerlanden',
+      'oldenelerbroek',
+      'oud-ittersum',
+      'oud ittersum',
+      'ittersumerlanden',
+      'ittersumerbroek',
+      'gerenlanden',
+      'gerenbroek',
+      'zandhove',
+    ],
     radiusKm: 2.5,
+    /** Zonder plaatsnaam alleen ten zuiden van de IJsselallee (niet Assendorp of Spoolde). */
+    maxLat: 52.4985,
   },
 
-  // De rest van de gemeente: wijken en kernen in kleine letters.
   city: {
-    zoneId: 'voorbeeldstad',
-    localities: ['voorbeeldstad', 'centrum', 'binnenstad'],
+    zoneId: 'zwolle',
+    localities: [
+      'zwolle', 'binnenstad', 'centrum', 'assendorp', 'diezerpoort', 'kamperpoort', 'veerallee', 'wipstrik',
+      'spoolde', 'holtenbroek', 'aa-landen', 'stadshagen', 'westenholte', 'berkum', 'dieze', 'hanzeland',
+      'weezenlanden', 'wezenlanden', 'marslanden', 'windesheim', 'wijthmen', 'herfte', 'haerst',
+    ],
   },
 
-  zoneLabels: { thuiswijk: 'Voorbeeldstad', voorbeeldstad: 'Voorbeeldstad', omgeving: 'Omgeving' },
+  zoneLabels: { 'zwolle-zuid': 'Zwolle', zwolle: 'Zwolle', omgeving: 'Omgeving' },
 
   bikeMaxKm: 8,
-  addressPlaceholder: 'Straat 1, Voorbeeldstad of 1234 AB',
+  addressPlaceholder: 'Straat 1, Zwolle of 8014 AB',
   curatedNote: 'Ze worden elke week opnieuw gecontroleerd.',
-  // Woorden die in titels van dezelfde zaal vaak terugkomen (helpt bij ontdubbelen), bv. de stadsnaam.
-  dedupeGenericWords: ['voorbeeldstad'],
-  // Naam van de verzamelbot in de User-Agent (zonder spaties).
-  bot: { name: 'VoorbeeldstadAgendaBot', project: 'uit-in-voorbeeldstad' },
+  dedupeGenericWords: ['zwolle', 'odeon', 'spiegel', 'hedon', 'fraterhuis'],
+  bot: { name: 'UitIn038Bot', project: 'uit-in-038' },
 };
