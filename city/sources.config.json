@@ -8,8 +8,8 @@
   "diagnoseUrls": [
     "https://www.hedon-zwolle.nl/",
     "https://www.pathe.nl/nl/bioscopen/pathe-zwolle",
-    "https://www.visitzwolle.com/agenda/",
-    "https://stadkamer.nl/agenda",
+    "https://www.visitzwolle.com/agenda/?ajx=1",
+    "https://stadkamer.nl/api/v1/events?siteId=1&page=1&departments=90",
     "https://www.zwolsetheaters.nl/programma"
   ],
   "sources": [
@@ -38,6 +38,21 @@
       "id": "hedon",
       "enabled": true,
       "$comment": "Concerten, clubavonden en shows van Hedon, uit de programmadata van de homepage (zie city/adapters/hedon.ts)."
+    },
+    {
+      "id": "stadkamer",
+      "enabled": true,
+      "options": {
+        "$comment": "Agenda-API van stadkamer.nl. departments 90 = alle Zwolse vestigingen (zonder Kampen). Spreekuren worden overgeslagen (excludeTitles, zie city/adapters/stadkamer.ts).",
+        "departments": ["90"]
+      }
+    },
+    {
+      "id": "visitzwolle",
+      "enabled": true,
+      "options": {
+        "$comment": "Stadsagenda per dag (/agenda/DD-MM-JJJJ/?ajx=1) plus de kinderlijst; ± 2 verzoeken per dag in het venster."
+      }
     }
   ]
 }

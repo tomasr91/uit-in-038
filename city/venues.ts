@@ -7,7 +7,7 @@ import type { KnownVenue } from '../collector/venues.ts';
 
 export const CITY_VENUES: KnownVenue[] = [
   // — Zwolle-Zuid —
-  { name: 'Stadkamer Zuid', aliases: /stadkamer zuid/i, locality: 'Zwolle-Zuid', address: 'Van der Capellenstraat 95, 8014 VW Zwolle', indoor: 'binnen' },
+  { name: 'Stadkamer Zuid', aliases: /stadkamer (zwolle-)?zuid/i, locality: 'Zwolle-Zuid', address: 'Van der Capellenstraat 95, 8014 VW Zwolle', indoor: 'binnen' },
   { name: 'Wijkboerderij De Schellerhoeve', aliases: /schellerhoeve/i, locality: 'Schelle', indoor: 'beide' },
   { name: 'Winkelcentrum Zwolle-Zuid', aliases: /winkelcentrum zwolle[- ]zuid/i, locality: 'Zwolle-Zuid', address: 'Van der Capellenstraat, Zwolle', indoor: 'beide' },
 

@@ -4,7 +4,11 @@
  */
 import type { SourceAdapter } from '../../collector/adapters/types.ts';
 import { hedon } from './hedon.ts';
+import { stadkamer } from './stadkamer.ts';
+import { visitZwolle } from './visitzwolle.ts';
 
 export const CITY_ADAPTERS: Record<string, SourceAdapter> = {
   hedon,
+  stadkamer,
+  visitzwolle: visitZwolle,
 };
