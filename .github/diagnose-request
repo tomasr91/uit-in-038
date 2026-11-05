@@ -1,5 +1,3 @@
-# VisitZwolle categorieën (Claude, 2026-11-05T14:55:19Z)
+# Stadkamer filters (Claude, 2026-11-05T15:09:19Z)
 bewaar
-https://www.visitzwolle.com/agenda/
-https://www.visitzwolle.com/agenda/07-11-2026/?ajx=1
-https://www.visitzwolle.com/robots.txt
+https://stadkamer.nl/api/v1/events?siteId=1&departments=90&page=1
