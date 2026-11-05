@@ -75,3 +75,18 @@ describe('VisitZwolle', () => {
     expect(splitLocation('Theater de Spiegel - Mateboerzaal, Zwolle')).toEqual({ venueName: 'Theater de Spiegel - Mateboerzaal', locality: 'Zwolle' });
   });
 });
+
+describe('VisitZwolle detailpagina', () => {
+  it('neemt de eerste zin(nen) over als intro en leest de leeftijd', async () => {
+    const { parseVzDetail, withDetail } = await import('../adapters/visitzwolle');
+    const html = `<html><body><div class="articlewrap"><div class="markdown"><div class="smallwrap">
+      <p>[TESTDATA] Tijdens deze speurtocht gaan jullie samen in het park op zoek naar verdwaalde draakjes.</p>
+      <p>Een interactieve speurtocht voor kinderen van 3 tot 8 jaar. Het duurt ongeveer een uur.</p>
+    </div></div></div></body></html>`;
+    const d = parseVzDetail(html);
+    expect(d.intro).toBe('[TESTDATA] Tijdens deze speurtocht gaan jullie samen in het park op zoek naar verdwaalde draakjes.');
+    expect(d.officialMinMonths).toBe(36);
+    const r = withDetail({ sourceId: 'visitzwolle', sourceName: 'VisitZwolle', title: 'X', url: 'https://example.org', start: '2026-11-07' } as never, d);
+    expect(r.summary).toBe(d.intro);
+  });
+});

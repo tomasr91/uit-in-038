@@ -10,12 +10,15 @@
  *    (/agenda/muziek/DD-MM-JJJJ/?ajx=1 enz.). Die halen we voor de eerste dagen (catDays) op; het label
  *    geldt voor het hele agenda-item (ook op latere dagen), want elk item heeft één vast nummer.
  *  - robots.txt staat /agenda/ en dagpagina's vanaf 2026 toe.
- *  - Omschrijvingen staan alleen op de detailpagina en worden niet overgenomen.
+ *  - Omschrijving: op de detailpagina (/agenda-item/<id>/…). Per agenda-item halen we die één keer op
+ *    (detailcache, hooguit maxDetailPages nieuwe per run, dichtstbij eerst) en nemen we de eerste zin(nen)
+ *    over als korte intro, met link naar de bron (uitzondering, zie city/claude/omschrijvingen.md).
+ *    De volledige tekst dient alleen voor de indeling (leeftijd, soort) en wordt niet getoond.
  *  - Dezelfde activiteit staat elke dag opnieuw in de lijst; de app voegt vaste reeksen samen.
  */
 import * as cheerio from 'cheerio';
 import { fetchText } from '../../collector/lib/http.ts';
-import { cleanText, isoToLocal, parseTimes } from '../../collector/lib/parse.ts';
+import { cleanText, detailInfo, isoToLocal, parseTimes } from '../../collector/lib/parse.ts';
 import { addDays } from '../../src/domain/dates.ts';
 import type { RawEvent } from '../../collector/normalize.ts';
 import type { AdapterContext, AdapterResult, SourceAdapter } from '../../collector/adapters/types.ts';
@@ -57,6 +60,43 @@ export function withCategories(raw: RawEvent, labels: string[] | undefined): Raw
   const sorted = [...new Set(labels)].sort((a, b) => order.indexOf(a) - order.indexOf(b));
   return { ...raw, kind: sorted[0], hints: [...(raw.hints ?? []), ...sorted] };
 }
+
+/** Wat we van een detailpagina bewaren. */
+export interface VzDetail {
+  intro?: string;
+  text?: string;
+  officialMinMonths?: number;
+  officialMaxMonths?: number;
+  ageLabel?: string;
+}
+
+/** Detailpagina → intro (eerste zin(nen), letterlijk), tekst voor de indeling en een genoemde leeftijd. */
+export function parseVzDetail(html: string): VzDetail {
+  const d = detailInfo(html, '.articlewrap .markdown');
+  return {
+    intro: d.intro,
+    text: d.text ? d.text.slice(0, 1500) : undefined,
+    officialMinMonths: d.age?.officialMinMonths,
+    officialMaxMonths: d.age?.officialMaxMonths,
+    ageLabel: d.age?.label,
+  };
+}
+
+/** Voegt de gegevens van de detailpagina toe aan een activiteit. */
+export function withDetail(raw: RawEvent, d: VzDetail | undefined): RawEvent {
+  if (!d) return raw;
+  return {
+    ...raw,
+    summary: d.intro,
+    descriptionForClassification: d.text,
+    officialMinMonths: d.officialMinMonths,
+    officialMaxMonths: d.officialMaxMonths,
+    ageLabel: d.ageLabel,
+  };
+}
+
+const DETAIL_VERSION = 'vzd1';
+const DETAIL_MAX_AGE_DAYS = 28;
 
 export function dayPath(day: string): string {
   const [y, m, d] = day.split('-');
@@ -160,10 +200,40 @@ export const visitZwolle: SourceAdapter = {
         events.push(withCategories(raw, cats.get(c.id)));
       }
     }
+    // Detailpagina's: één per agenda-item, uit de cache waar het kan; nieuwe items dichtstbij eerst.
+    const details = new Map<string, VzDetail>();
+    let fetched = 0;
+    let detailFailed = 0;
+    const fresh = (at: string) => (Date.parse(ctx.nowIso) - Date.parse(at)) / 86_400_000 < DETAIL_MAX_AGE_DAYS;
+    for (const e of [...events].sort((a, b) => (a.start < b.start ? -1 : 1))) {
+      const id = e.seriesKey!.slice(3);
+      if (details.has(id)) continue;
+      const key = `${DETAIL_VERSION}|${id}`;
+      const hit = ctx.cache?.get<VzDetail>(key);
+      if (hit && fresh(hit.fetchedAt)) {
+        details.set(id, hit.value);
+        continue;
+      }
+      if (fetched >= ctx.maxDetailPages) {
+        if (hit) details.set(id, hit.value);
+        continue;
+      }
+      fetched++;
+      try {
+        const d = parseVzDetail(await fetchText(e.url));
+        ctx.cache?.set(key, d);
+        details.set(id, d);
+      } catch {
+        detailFailed++;
+        if (hit) details.set(id, hit.value);
+      }
+    }
+    for (let i = 0; i < events.length; i++) events[i] = withDetail(events[i], details.get(events[i].seriesKey!.slice(3)));
+
     return {
       events,
       coverage: { from: ctx.today, to: addDays(ctx.today, days - 1) },
-      notes: `${events.length} activiteit-dagen over ${days} dagen; ${events.filter((e) => e.kind).length} met soort${kidsFailed ? `; kinderlijst ${kidsFailed}× niet gelukt` : ''}${catFailed ? `; categorielijst ${catFailed}× niet gelukt` : ''}`,
+      notes: `${events.length} activiteit-dagen over ${days} dagen; ${events.filter((e) => e.kind).length} met soort; ${events.filter((e) => e.summary).length} met intro (${fetched} detailpagina's opgehaald${detailFailed ? `, ${detailFailed} mislukt` : ''})${kidsFailed ? `; kinderlijst ${kidsFailed}× niet gelukt` : ''}${catFailed ? `; categorielijst ${catFailed}× niet gelukt` : ''}`,
     };
   },
 };

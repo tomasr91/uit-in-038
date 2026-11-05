@@ -6,8 +6,9 @@
  *    met filters departments (vestigingen; 90 = Zwolle), categories (doelgroep/leeftijd) en tags.
  *    robots.txt staat /api/ toe.
  *  - Per activiteit: titel, URL, datumtekst ("5 nov 2026 - 19.00 tot 21.00 uur", "20 okt t/m 9 nov 2026",
- *    "Meerdere data"), nextDate (eerstvolgende dag), locatie en canceled. De introtekst wordt NIET
- *    overgenomen; die dient alleen voor de indeling.
+ *    "Meerdere data"), nextDate (eerstvolgende dag), locatie en canceled. Van de introtekst nemen we
+ *    de eerste zin(nen) over als korte intro (uitzondering, zie city/claude/omschrijvingen.md); de hele
+ *    tekst dient alleen voor de indeling.
  *  - Doelgroep en leeftijd staan niet in de lijst. Daarom halen we per doelgroepcategorie en -tag de
  *    lijst nog eens op (klein) en geven we de naam als hint mee ("Kinderen", "6+", "Voor de kleinsten").
  *  - Soort: de thematags (MAAKpunt, Lezen, Cultuur, Doen, Leren) halen we op dezelfde manier op; de eerste
@@ -15,7 +16,7 @@
  *  - Spreekuren (Taalpunt, DigiHulp, Informatiepunt …) zijn geen uitje en worden overgeslagen.
  */
 import { fetchText } from '../../collector/lib/http.ts';
-import { cleanText, parseDutchDateRange, parseTimes } from '../../collector/lib/parse.ts';
+import { cleanText, parseDutchDateRange, parseTimes, shortIntro } from '../../collector/lib/parse.ts';
 import type { RawEvent } from '../../collector/normalize.ts';
 import type { AdapterContext, AdapterResult, SourceAdapter } from '../../collector/adapters/types.ts';
 
@@ -103,6 +104,7 @@ export function stadkamerToRaw(item: StadkamerItem, hints: string[], today: stri
     ...stadkamerVenue(item.location),
     hints,
     descriptionForClassification: item.introText,
+    summary: shortIntro(item.introText),
     statusText: item.canceled ? 'geannuleerd' : undefined,
     indoor: 'binnen' as const,
     checkedAt: nowIso,
