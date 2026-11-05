@@ -10,6 +10,7 @@ Stand van 5 november 2026. Alle bronnen worden beleefd benaderd: herkenbare User
 | **Pathé Zwolle** (pathe.nl) | `pathe` (motor) | Paginadata van de bioscooppagina | Kinderfilms (keuring t/m 12) en Kleuterbios | Alleen speeldagen, geen aanvangstijden. |
 | **VisitZwolle** (visitzwolle.com/agenda) | `visitzwolle` | HTML-stukje per dag: `/agenda/DD-MM-JJJJ/?ajx=1`, plus `/agenda/kinderen/DD-MM-JJJJ/?ajx=1` voor de hint Kinderen | De stadsagenda: exposities, rondleidingen, films van Fraterhuis, voorstellingen in Odeon en De Spiegel, Hedon, markten; ± 30 per dag | ± 2 verzoeken per dag in het venster (± 4 minuten per run). Geen prijs of leeftijd in de lijst. Vaste dagelijkse activiteiten (speurtochten, escape room) staan elke dag in de lijst; de app voegt ze samen. Kaarten met een andere datum dan de opgevraagde dag worden overgeslagen. |
 | **Stadkamer** (stadkamer.nl/agenda) | `stadkamer` | JSON-API van de site: `/api/v1/events?siteId=1&departments=90` | Activiteiten in de vier Zwolse vestigingen, waaronder Zwolle-Zuid; ± 50 | Doelgroep en leeftijd komen uit extra verzoeken per doelgroepcategorie/-tag. Spreekuren (Taalpunt, DigiHulp, Informatiepunt) worden overgeslagen. "Meerdere data" = alleen de eerstvolgende keer. |
+| **Zwolse Theaters** (zwolsetheaters.nl) | `zwolse-theaters` | Programma-API `/api/events/getresults` (POST met de zoekopdracht uit `/programma`, zoals de site zelf) | Theater De Spiegel en Schouwburg Odeon: ± 345 voorstellingen, waaronder ± 60 jeugd en familie; leeftijd uit de titel ("3+"), status uit de knop (Laatste kaarten, Wachtlijst) | Geen prijs in de lijst. Lukt de API niet, dan alleen de eerste 10 uit `/programma` (staat in de status). |
 | Handmatig | `handmatig` | JSON in `data/curated/` | Wat de nachtelijke update niet zelf kan ophalen | Wekelijks bijgehouden door de skill `bronnen-verversen` |
 | Vaste plekken | `vaste-plekken` | `data/places.json` | Plekken waar je altijd heen kunt | Nog leeg |
 
@@ -17,7 +18,6 @@ Stand van 5 november 2026. Alle bronnen worden beleefd benaderd: herkenbare User
 
 | Bron | Bevinding (5-11-2026) |
 |---|---|
-| **Zwolse Theaters** (Odeon en De Spiegel) | Umbraco/Vue-site; `/programma` toont maar 10 voorstellingen, de rest laadt met JavaScript (`/assets/js/main.js`). De voorstellingen staan ook in VisitZwolle; een eigen adapter zou prijs, leeftijd ("3plus") en status toevoegen. |
 | Filmtheater Fraterhuis | JavaScript-app; de films staan in VisitZwolle. |
 | Museum de Fundatie | `/nl/tentoonstellingen` (kandidaat voor Lopend); exposities staan deels in VisitZwolle. |
 | IJsselhallen | Doorverwijslus (ook zonder www); nog niet bereikbaar voor de verzamellaag. |

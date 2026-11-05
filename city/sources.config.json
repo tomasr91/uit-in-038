@@ -29,9 +29,18 @@
       "homepage": "https://www.pathe.nl/nl/bioscopen/pathe-zwolle",
       "description": "Kinderfilms (keuring t/m 12, gefilterd op de leeftijd van de kinderen) en Kleuterbios in Pathé Zwolle.",
       "options": {
-        "cinemas": ["pathe-zwolle"],
-        "localities": { "pathe-zwolle": "Zwolle" },
-        "ratings": ["al", "-6ans", "-9ans", "-12ans"]
+        "cinemas": [
+          "pathe-zwolle"
+        ],
+        "localities": {
+          "pathe-zwolle": "Zwolle"
+        },
+        "ratings": [
+          "al",
+          "-6ans",
+          "-9ans",
+          "-12ans"
+        ]
       }
     },
     {
@@ -44,7 +53,9 @@
       "enabled": true,
       "options": {
         "$comment": "Agenda-API van stadkamer.nl. departments 90 = alle Zwolse vestigingen (zonder Kampen). Spreekuren worden overgeslagen (excludeTitles, zie city/adapters/stadkamer.ts).",
-        "departments": ["90"]
+        "departments": [
+          "90"
+        ]
       }
     },
     {
@@ -52,6 +63,14 @@
       "enabled": true,
       "options": {
         "$comment": "Stadsagenda per dag (/agenda/DD-MM-JJJJ/?ajx=1) plus de kinderlijst; ± 2 verzoeken per dag in het venster."
+      }
+    },
+    {
+      "id": "zwolse-theaters",
+      "enabled": true,
+      "options": {
+        "$comment": "Theater De Spiegel en Schouwburg Odeon: programma-API van zwolsetheaters.nl (POST, zoals de site zelf). Zie city/adapters/zwolse-theaters.ts.",
+        "limit": 100
       }
     }
   ]
