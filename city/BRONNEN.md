@@ -20,5 +20,5 @@ Stand van 5 november 2026. Alle bronnen worden beleefd benaderd: herkenbare User
 |---|---|
 | Filmtheater Fraterhuis | JavaScript-app; de films staan in VisitZwolle. |
 | Museum de Fundatie | `/nl/tentoonstellingen` (kandidaat voor Lopend); exposities staan deels in VisitZwolle. |
-| IJsselhallen | Doorverwijslus (ook zonder www); nog niet bereikbaar voor de verzamellaag. |
+| IJsselhallen | Geen bron: de hallen zijn in 2024 grotendeels gesloopt (alleen de Bogenhal staat nog) en de site geeft een doorverwijslus (opnieuw gecontroleerd 5 november 2026). |
 | Go-Kids Zwolle | Secundaire bron (verwijst naar organisatoren); alleen als aanvulling via de skill `bronnen-verversen`. |
