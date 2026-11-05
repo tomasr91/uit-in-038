@@ -1,7 +1,7 @@
 /** Stadkamer en VisitZwolle (synthetische gegevens in de vorm van de echte bron; alles hier is ⚠️ TESTDATA). */
 import { describe, expect, it } from 'vitest';
 import { stadkamerToRaw, stadkamerVenue, type StadkamerItem } from '../adapters/stadkamer';
-import { dayPath, parseVzList, splitLocation, vzToRaw } from '../adapters/visitzwolle';
+import { dayPath, parseVzList, splitLocation, vzToRaw, withCategories } from '../adapters/visitzwolle';
 import { normalize } from '../../collector/normalize';
 
 const NOW = '2026-11-05T08:00:00.000Z';
@@ -52,6 +52,15 @@ describe('VisitZwolle', () => {
   it('een kaart met een andere datum hoort niet bij deze dag', () => {
     const [c] = parseVzList(page(card('2', '[TESTDATA] X', '2026-11-08T10:00:00+01:00', 'Zwolle', '10:00')));
     expect(vzToRaw(c, '2026-11-07', false, NOW)).toBeUndefined();
+  });
+  it('categorielijsten geven het soortlabel en de categorie', () => {
+    const [c] = parseVzList(page(card('3', '[TESTDATA] Avond', '2026-11-07T20:00:00+01:00', 'Zwolle', '20:00')));
+    const r = withCategories(vzToRaw(c, '2026-11-07', false, NOW)!, ['Kunst & cultuur', 'Muziek']);
+    expect(r.kind).toBe('Muziek');
+    const n = normalize(r);
+    expect(n.kind).toBe('Muziek');
+    expect(n.categories).toContain('muziek');
+    expect(withCategories(vzToRaw(c, '2026-11-07', false, NOW)!, undefined).kind).toBeUndefined();
   });
   it('hulpjes', () => {
     expect(dayPath('2026-11-05')).toBe('05-11-2026');

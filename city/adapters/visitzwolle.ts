@@ -6,6 +6,9 @@
  *    site zelf "meer"). Per kaart: link (/agenda-item/<id>/<slug>/), titel, begintijd (time datetime),
  *    tijden ("08:00 - 20:00") en plek ("Plek, Plaats"). Eén verzoek per dag.
  *  - Kinderactiviteiten: dezelfde lijst onder /agenda/kinderen/DD-MM-JJJJ/?ajx=1; die krijgen de hint "Kinderen".
+ *  - Soort: de kaarten noemen geen categorie, maar de site heeft per categorie dezelfde lijst
+ *    (/agenda/muziek/DD-MM-JJJJ/?ajx=1 enz.). Die halen we voor de eerste dagen (catDays) op; het label
+ *    geldt voor het hele agenda-item (ook op latere dagen), want elk item heeft één vast nummer.
  *  - robots.txt staat /agenda/ en dagpagina's vanaf 2026 toe.
  *  - Omschrijvingen staan alleen op de detailpagina en worden niet overgenomen.
  *  - Dezelfde activiteit staat elke dag opnieuw in de lijst; de app voegt vaste reeksen samen.
@@ -28,6 +31,31 @@ export interface VzCard {
   datetime?: string;
   times?: string;
   location?: string;
+}
+
+/** Categorielijsten van VisitZwolle (pad → label), in volgorde van voorkeur voor het soortlabel. */
+export const VZ_CATEGORIES: [string, string][] = [
+  ['theater', 'Theater'],
+  ['muziek', 'Muziek'],
+  ['film', 'Film'],
+  ['festival', 'Festival'],
+  ['expositie', 'Expositie'],
+  ['markt', 'Markt'],
+  ['workshop', 'Workshop'],
+  ['rondleiding', 'Rondleiding'],
+  ['educatie', 'Educatie'],
+  ['actief', 'Actief'],
+  ['eten-drinken', 'Eten & drinken'],
+  ['winkelen', 'Winkelen'],
+  ['kunst-cultuur', 'Kunst & cultuur'],
+];
+
+/** Labels van een item: de eerste wordt het soortlabel, alle labels gaan als hint mee. */
+export function withCategories(raw: RawEvent, labels: string[] | undefined): RawEvent {
+  if (!labels?.length) return raw;
+  const order = VZ_CATEGORIES.map(([, l]) => l);
+  const sorted = [...new Set(labels)].sort((a, b) => order.indexOf(a) - order.indexOf(b));
+  return { ...raw, kind: sorted[0], hints: [...(raw.hints ?? []), ...sorted] };
 }
 
 export function dayPath(day: string): string {
@@ -97,7 +125,23 @@ export const visitZwolle: SourceAdapter = {
   async run(ctx: AdapterContext): Promise<AdapterResult> {
     const maxDays = (ctx.options.maxDays as number | undefined) ?? 120;
     const kidsPath = (ctx.options.kidsPath as string | undefined) ?? 'kinderen';
+    const catDays = (ctx.options.catDays as number | undefined) ?? 14;
     const events: RawEvent[] = [];
+    const cats = new Map<string, string[]>();
+    let catFailed = 0;
+    for (let day = ctx.today, i = 0; i < catDays && day <= ctx.until; day = addDays(day, 1), i++) {
+      for (const [path, label] of VZ_CATEGORIES) {
+        try {
+          for (const c of parseVzList(await fetchText(`${BASE}/agenda/${path}/${dayPath(day)}/?ajx=1`))) {
+            const l = cats.get(c.id) ?? [];
+            if (!l.includes(label)) l.push(label);
+            cats.set(c.id, l);
+          }
+        } catch {
+          catFailed++;
+        }
+      }
+    }
     const seen = new Set<string>();
     let days = 0;
     let kidsFailed = 0;
@@ -113,13 +157,13 @@ export const visitZwolle: SourceAdapter = {
         const raw = c.title ? vzToRaw(c, day, kidIds.has(c.id), ctx.nowIso) : undefined;
         if (!raw || seen.has(raw.sourceEventId!)) continue;
         seen.add(raw.sourceEventId!);
-        events.push(raw);
+        events.push(withCategories(raw, cats.get(c.id)));
       }
     }
     return {
       events,
       coverage: { from: ctx.today, to: addDays(ctx.today, days - 1) },
-      notes: `${events.length} activiteit-dagen over ${days} dagen${kidsFailed ? `; kinderlijst ${kidsFailed}× niet gelukt` : ''}`,
+      notes: `${events.length} activiteit-dagen over ${days} dagen; ${events.filter((e) => e.kind).length} met soort${kidsFailed ? `; kinderlijst ${kidsFailed}× niet gelukt` : ''}${catFailed ? `; categorielijst ${catFailed}× niet gelukt` : ''}`,
     };
   },
 };
