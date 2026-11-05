@@ -1,0 +1,9 @@
+{
+  "meta": {
+    "collectedAt": "2026-11-05T00:00:00Z",
+    "collectedBy": "Nog leeg",
+    "method": "Vaste plekken (musea, speeltuinen, zwembaden …): per plek opgezocht en gecontroleerd via de eigen site.",
+    "note": "Geen agenda-items: plekken waar je zonder afspraak heen kunt. In de app onder het tabblad Altijd. Voorbeelden van de vorm: zie data/places.json van Uit in 030."
+  },
+  "places": []
+}

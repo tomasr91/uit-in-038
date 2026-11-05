@@ -1,0 +1,48 @@
+{
+  "$comment": "Bronnen voor de nachtelijke update. Zet 'enabled' op false om een bron uit te schakelen. Bronnen met type ical, jsonld of tribe werken zonder code (zie collector/adapters/generic.ts); eigen adapters staan in city/adapters/index.ts.",
+  "windowMonths": 3,
+  "windowMarginDays": 14,
+  "maxDetailPagesPerSource": 400,
+  "pruneExpiredAfterDays": 60,
+  "$diagnoseUrls": "Standaardlijst voor de workflow Bronnen diagnose (collector/diagnose.ts zonder argumenten).",
+  "diagnoseUrls": [],
+  "sources": [
+    {
+      "id": "handmatig",
+      "enabled": true,
+      "$comment": "Activiteiten in data/curated/*.json (met de hand of door de skill bronnen-verversen)."
+    },
+    {
+      "id": "vaste-plekken",
+      "enabled": true,
+      "$comment": "Plekken waar je altijd heen kunt, uit data/places.json (tabblad Altijd)."
+    },
+    {
+      "id": "pathe",
+      "enabled": false,
+      "$comment": "Kinderfilms en Kleuterbios. Zet de slug van jouw bioscoop uit de URL pathe.nl/nl/bioscopen/<slug> in cinemas.",
+      "homepage": "https://www.pathe.nl/nl/bioscopen",
+      "options": {
+        "cinemas": [],
+        "localities": {},
+        "ratings": ["al", "-6ans", "-9ans", "-12ans"]
+      }
+    },
+    {
+      "id": "voorbeeld-ical",
+      "type": "ical",
+      "name": "Voorbeeld: agenda met iCal-feed",
+      "homepage": "https://example.org/agenda/",
+      "enabled": false,
+      "options": { "urls": ["https://example.org/?ical=1"], "locality": "Voorbeeldstad" }
+    },
+    {
+      "id": "voorbeeld-wordpress",
+      "type": "tribe",
+      "name": "Voorbeeld: WordPress met The Events Calendar",
+      "homepage": "https://example.org/agenda/",
+      "enabled": false,
+      "options": { "site": "https://example.org", "locality": "Voorbeeldstad" }
+    }
+  ]
+}
