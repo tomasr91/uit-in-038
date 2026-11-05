@@ -1,6 +1,6 @@
 /** Stadkamer en VisitZwolle (synthetische gegevens in de vorm van de echte bron; alles hier is ⚠️ TESTDATA). */
 import { describe, expect, it } from 'vitest';
-import { stadkamerKind, stadkamerToRaw, stadkamerVenue, type StadkamerItem } from '../adapters/stadkamer';
+import { stadkamerHints, stadkamerKind, stadkamerToRaw, stadkamerVenue, type StadkamerItem } from '../adapters/stadkamer';
 import { dayPath, parseVzList, splitLocation, vzToRaw, withCategories } from '../adapters/visitzwolle';
 import { normalize } from '../../collector/normalize';
 
@@ -37,6 +37,13 @@ const card = (id: string, title: string, dt: string, loc: string, times: string)
     <div class="body"><h3 class="title t4 l"> ${title}</h3>
       <dl class="struct proplist"><dt>pin</dt><dd class="location">${loc}</dd><dt>tijd</dt><dd>${times}</dd></dl></div></a></article>`;
 const page = (cards: string) => `<div class="dayhead"><h3 class="title">vandaag</h3></div><ul class="struct boxgrid"><li>${cards}</li></ul>`;
+
+describe('Stadkamer 0+', () => {
+  it('telt bij een lezing niet als kinderlabel, bij peuteraanbod wel', () => {
+    expect(normalize(stadkamerToRaw(sk({ title: '[TESTDATA] Lezing Noord-Korea', date: '5 nov 2026 - 19.00 tot 21.00 uur' }), stadkamerHints('Lezing Noord-Korea', ['0+']), '2026-11-05', NOW)!).audiences).not.toContain('kinderen');
+    expect(normalize(stadkamerToRaw(sk({ title: '[TESTDATA] Liedje, liedje, boekje', date: '7 nov 2026 - 10.30 tot 11.00 uur' }), stadkamerHints('Liedje, liedje, boekje', ['0+']), '2026-11-05', NOW)!).audiences).toContain('kinderen');
+  });
+});
 
 describe('Stadkamer soort', () => {
   it('kiest het eerste thema als soortlabel', () => {

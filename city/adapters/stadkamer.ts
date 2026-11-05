@@ -42,9 +42,17 @@ interface StadkamerPage {
 
 /**
  * Doelgroepcategorieën en -tags van Stadkamer (ID → hint). Zie meta.filters van de API.
- * "0+" (65499) bewust niet: Stadkamer gebruikt dat ook voor lezingen voor iedereen ("vanaf 0"), en dan
- * zou bv. een lezing over Noord-Korea bij Kinderen komen. Echt kinderaanbod heeft ook Kinderen of Voor de kleinsten.
+ * "0+" (65499) staat apart: Stadkamer gebruikt dat ook voor lezingen voor iedereen ("vanaf 0"). Het telt
+ * alleen als kinderlabel als de titel niet op volwassenenaanbod wijst (zie ADULT_TITLE).
  */
+export const ZERO_PLUS_CATEGORY = '65499';
+export const ADULT_TITLE = /lezing|debat|college|symposium|café|cafe|filosof|documentaire|publieksavond|studiekring|actieonderzoek|meetup|senioren/i;
+
+/** Hints voor één activiteit: "0+" valt weg bij een titel die op volwassenenaanbod wijst. */
+export function stadkamerHints(title: string, hints: string[]): string[] {
+  return ADULT_TITLE.test(title) ? hints.filter((h) => h !== '0+') : hints;
+}
+
 export const DEFAULT_HINT_CATEGORIES: Record<string, string> = {
   '63723': 'Kinderen',
   '841101': 'Kinderen (basisschool)',
@@ -158,6 +166,7 @@ export const stadkamer: SourceAdapter = {
     const hints = new Map<number, Set<string>>();
     const add = (id: number, h: string) => hints.set(id, (hints.get(id) ?? new Set()).add(h));
     for (const [id, h] of Object.entries(hintCats)) for (const it of await fetchAll({ departments, categories: id }, 5)) add(it.id, h);
+    for (const it of await fetchAll({ departments, categories: ZERO_PLUS_CATEGORY }, 5)) add(it.id, '0+');
     for (const [id, h] of Object.entries(hintTags)) for (const it of await fetchAll({ departments, tags: id }, 5)) add(it.id, h);
     const kindTags = (o.kindTags as [string, string][] | undefined) ?? DEFAULT_KIND_TAGS;
     const kinds = new Map<number, string[]>();
@@ -178,7 +187,7 @@ export const stadkamer: SourceAdapter = {
         skipped++;
         continue;
       }
-      const found = stadkamerToRaw(it, [...(hints.get(it.id) ?? [])], ctx.today, ctx.nowIso);
+      const found = stadkamerToRaw(it, stadkamerHints(it.title, [...(hints.get(it.id) ?? [])]), ctx.today, ctx.nowIso);
       const kind = stadkamerKind(kinds.get(it.id) ?? [], kindTags.map(([, l]) => l));
       const raw = found && kind ? { ...found, kind } : found;
       if (raw && (raw.end ?? raw.start).slice(0, 10) >= ctx.today && raw.start.slice(0, 10) <= ctx.until) events.push(raw);
