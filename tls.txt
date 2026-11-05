@@ -1,0 +1,15 @@
+=== www.visitzwolle.com
+ 0 s:CN = de.visitzwolle.com
+   i:C = US, O = Let's Encrypt, CN = YR1
+   v:NotBefore: Oct  2 16:40:00 2026 GMT; NotAfter: Dec 31 16:39:59 2026 GMT
+ 1 s:C = US, O = Let's Encrypt, CN = YR1
+   i:C = US, O = ISRG, CN = Root YR
+   v:NotBefore: Sep  3 00:00:00 2025 GMT; NotAfter: Sep  2 23:59:59 2028 GMT
+ 2 s:C = US, O = ISRG, CN = Root YR
+   i:C = US, O = Internet Security Research Group, CN = ISRG Root X1
+   v:NotBefore: May 13 00:00:00 2026 GMT; NotAfter: Sep  2 23:59:59 2032 GMT
+Verify return code: 0 (ok)
+curl: 200 https://www.visitzwolle.com/ ip=83.149.105.22
+83.149.105.22   STREAM www.visitzwolle.com
+83.149.105.22   DGRAM  
+83.149.105.22   RAW    

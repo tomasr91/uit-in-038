@@ -1,0 +1,46 @@
+{
+  "at": "2026-11-05T16:43:18.117Z",
+  "userAgent": "UitIn038Bot/0.1 (persoonlijke gezinsagenda; )",
+  "results": [
+    {
+      "url": "https://www.visitzwolle.com/agenda-item/182526/drakenjacht/",
+      "robots": {
+        "status": 200,
+        "text": "\n\n\nUser-agent: Amazonbot\nDisallow: /\n\nUser-agent: SiteAuditBot\nDisallow: /\n\nUser-agent: SemrushBot-BA\nDisallow: /\n\nUser-agent: SemrushBot-SI\nDisallow: /\n\nUser-agent: SemrushBot-SWA\nDisallow: /\n\nUser-agent: SemrushBot-CT\nDisallow: /\n\nUser-agent: SplitSignalBot\nDisallow: /\n\nUser-agent: SemrushBot-COUB\nDisallow: /\n\nUser-agent: VelenPublicWebCrawler\nDisallow: /\n\nUser-agent: SeekportBot\nCrawl-delay: 4\n\n\nUser-agent: MJ12bot\nCrawl-delay: 4\n\n\nUser-agent: GPTBot\nCrawl-delay: 4\ndisallow: /agenda/*\ndisallow: /50550/*\ndisallow: /50550/*\n\nUser-agent: *\ndisallow: /*/*/*/*/*/*\ndisallow: /^/\ndisallow: /zoeken/\ndisallow: /agenda/*-2012/\ndisallow: /agenda/*-2013/\ndisallow: /agenda/*-2014/\ndisallow: /agenda/*-2015/\ndisallow: /agenda/*-2016/\ndisallow: /agenda/*-2017/\ndisallow: /agenda/*-2018/\ndisallow: /agenda/*-2019/\ndisallow: /agenda/*-2020/\ndisallow: /agenda/*-2021/\ndisallow: /agenda/*-2022/\ndisallow: /agenda/*-2023/\ndisallow: /agenda/*-2024/\ndisallow: /agenda/*-2025/\ndisallow: /search/\ndisallow: /50550/*-2012/\ndisallow: /50550/*-2013/\ndisallow: /50550/*-2014/\ndisallow: /50550/*-2015/\ndisallow: /50550/*-2016/\ndisallow: /50550/*-2017/\ndisallow: /50550/*-2018/\ndisallow: /50550/*-2019/\ndisallow: /50550/*-2020/\ndisallow: /50550/*-2021/\ndisallow: /50550/*-2022/\ndisallow: /50550/*-2023/\ndisallow: /50550/*-2024/\ndisallow: /50550/*-2025/\ndisallow: /suchen/\ndisallow: /50550/*-2012/\ndisallow: /50550/*-2013/\ndisallow: /50550/*-2014/\ndisallow: /50550/*-2015/\ndisallow: /50550/*-2016/\ndisallow: /50550/*-2017/\ndisallow: /50550/*-2018/\ndisallow: /50550/*-2019/\ndisallow: /50550/*-2020/\ndisallow: /50550/*-2021/\ndisallow: /50550/*-2022/\ndisallow: /50550/*-2023/\ndisallow: /50550/*-2024/\ndisallow: /50550/*-2025/\n\n\n"
+      },
+      "page": {
+        "url": "https://www.visitzwolle.com/agenda-item/182526/drakenjacht/",
+        "status": 200,
+        "finalUrl": "https://www.visitzwolle.com/agenda-item/182526/drakenjacht/",
+        "headers": {
+          "server": "Apache/2",
+          "content-type": "text/html; charset=UTF-8"
+        },
+        "length": 55444,
+        "title": "Drakenjacht -  3 sep 2026 -  1 sep 2031 - VisitZwolle",
+        "start": "<!DOCTYPE HTML> <html lang=\"nl\" id=\"zw23\" class=\"live\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover\"> <meta name=\"mobile-web-app-capable\" content=\"yes\"> <base href=\"https://www.visitzwolle.com\"> <meta name=\"google-site-verification\" content=\"sAttarRtPpi5a9GJbbUYvkPRdKH_Nhu7YUdfgBK3yig\"> ",
+        "savedAs": "diag-1.html"
+      }
+    },
+    {
+      "url": "https://www.visitzwolle.com/agenda-item/183667/zaterdag-7-november-2026-fantasy-experience-event/",
+      "robots": {
+        "status": 200,
+        "text": "\n\n\nUser-agent: Amazonbot\nDisallow: /\n\nUser-agent: SiteAuditBot\nDisallow: /\n\nUser-agent: SemrushBot-BA\nDisallow: /\n\nUser-agent: SemrushBot-SI\nDisallow: /\n\nUser-agent: SemrushBot-SWA\nDisallow: /\n\nUser-agent: SemrushBot-CT\nDisallow: /\n\nUser-agent: SplitSignalBot\nDisallow: /\n\nUser-agent: SemrushBot-COUB\nDisallow: /\n\nUser-agent: VelenPublicWebCrawler\nDisallow: /\n\nUser-agent: SeekportBot\nCrawl-delay: 4\n\n\nUser-agent: MJ12bot\nCrawl-delay: 4\n\n\nUser-agent: GPTBot\nCrawl-delay: 4\ndisallow: /agenda/*\ndisallow: /50550/*\ndisallow: /50550/*\n\nUser-agent: *\ndisallow: /*/*/*/*/*/*\ndisallow: /^/\ndisallow: /zoeken/\ndisallow: /agenda/*-2012/\ndisallow: /agenda/*-2013/\ndisallow: /agenda/*-2014/\ndisallow: /agenda/*-2015/\ndisallow: /agenda/*-2016/\ndisallow: /agenda/*-2017/\ndisallow: /agenda/*-2018/\ndisallow: /agenda/*-2019/\ndisallow: /agenda/*-2020/\ndisallow: /agenda/*-2021/\ndisallow: /agenda/*-2022/\ndisallow: /agenda/*-2023/\ndisallow: /agenda/*-2024/\ndisallow: /agenda/*-2025/\ndisallow: /search/\ndisallow: /50550/*-2012/\ndisallow: /50550/*-2013/\ndisallow: /50550/*-2014/\ndisallow: /50550/*-2015/\ndisallow: /50550/*-2016/\ndisallow: /50550/*-2017/\ndisallow: /50550/*-2018/\ndisallow: /50550/*-2019/\ndisallow: /50550/*-2020/\ndisallow: /50550/*-2021/\ndisallow: /50550/*-2022/\ndisallow: /50550/*-2023/\ndisallow: /50550/*-2024/\ndisallow: /50550/*-2025/\ndisallow: /suchen/\ndisallow: /50550/*-2012/\ndisallow: /50550/*-2013/\ndisallow: /50550/*-2014/\ndisallow: /50550/*-2015/\ndisallow: /50550/*-2016/\ndisallow: /50550/*-2017/\ndisallow: /50550/*-2018/\ndisallow: /50550/*-2019/\ndisallow: /50550/*-2020/\ndisallow: /50550/*-2021/\ndisallow: /50550/*-2022/\ndisallow: /50550/*-2023/\ndisallow: /50550/*-2024/\ndisallow: /50550/*-2025/\n\n\n"
+      },
+      "page": {
+        "url": "https://www.visitzwolle.com/agenda-item/183667/zaterdag-7-november-2026-fantasy-experience-event/",
+        "status": 200,
+        "finalUrl": "https://www.visitzwolle.com/agenda-item/183667/zaterdag-7-november-2026-fantasy-experience-event/",
+        "headers": {
+          "server": "Apache/2",
+          "content-type": "text/html; charset=UTF-8"
+        },
+        "length": 55103,
+        "title": "Zaterdag 7 november 2026 | Fantasy Experience | event -  7 nov 2026 - VisitZwolle",
+        "start": "<!DOCTYPE HTML> <html lang=\"nl\" id=\"zw23\" class=\"live\"> <head> <meta charset=\"UTF-8\"> <meta name=\"viewport\" content=\"width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover\"> <meta name=\"mobile-web-app-capable\" content=\"yes\"> <base href=\"https://www.visitzwolle.com\"> <meta name=\"google-site-verification\" content=\"sAttarRtPpi5a9GJbbUYvkPRdKH_Nhu7YUdfgBK3yig\"> ",
+        "savedAs": "diag-2.html"
+      }
+    }
+  ]
+}
