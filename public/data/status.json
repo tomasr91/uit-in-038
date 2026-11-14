@@ -1,14 +1,14 @@
 {
-  "lastSuccessfulRun": "2026-11-13T09:47:00.760Z",
-  "lastRun": "2026-11-13T09:47:00.760Z",
+  "lastSuccessfulRun": "2026-11-14T04:29:13.542Z",
+  "lastRun": "2026-11-14T04:29:13.542Z",
   "sources": [
     {
       "sourceId": "handmatig",
       "sourceName": "Alternatief verzameld",
       "enabled": true,
       "ok": true,
-      "lastAttempt": "2026-11-13T09:36:13.909Z",
-      "lastSuccess": "2026-11-13T09:36:13.909Z",
+      "lastAttempt": "2026-11-14T04:18:22.798Z",
+      "lastSuccess": "2026-11-14T04:18:22.798Z",
       "fetched": 0
     },
     {
@@ -16,18 +16,18 @@
       "sourceName": "Hedon",
       "enabled": true,
       "ok": true,
-      "lastAttempt": "2026-11-13T09:36:13.909Z",
-      "lastSuccess": "2026-11-13T09:36:13.909Z",
-      "fetched": 78,
-      "notes": "78 voorstellingen van 119 in het programma"
+      "lastAttempt": "2026-11-14T04:18:22.798Z",
+      "lastSuccess": "2026-11-14T04:18:22.798Z",
+      "fetched": 77,
+      "notes": "77 voorstellingen van 118 in het programma"
     },
     {
       "sourceId": "pathe",
       "sourceName": "Pathé",
       "enabled": true,
       "ok": true,
-      "lastAttempt": "2026-11-13T09:36:13.909Z",
-      "lastSuccess": "2026-11-13T09:36:13.909Z",
+      "lastAttempt": "2026-11-14T04:18:22.798Z",
+      "lastSuccess": "2026-11-14T04:18:22.798Z",
       "fetched": 21,
       "notes": "21 kinderfilms en Kleuterbios-dagen"
     },
@@ -36,8 +36,8 @@
       "sourceName": "Stadkamer",
       "enabled": true,
       "ok": true,
-      "lastAttempt": "2026-11-13T09:36:13.909Z",
-      "lastSuccess": "2026-11-13T09:36:13.909Z",
+      "lastAttempt": "2026-11-14T04:18:22.798Z",
+      "lastSuccess": "2026-11-14T04:18:22.798Z",
       "fetched": 44,
       "notes": "44 activiteiten van 57 (9 spreekuren overgeslagen)"
     },
@@ -46,8 +46,8 @@
       "sourceName": "Vaste plekken",
       "enabled": true,
       "ok": true,
-      "lastAttempt": "2026-11-13T09:36:13.909Z",
-      "lastSuccess": "2026-11-13T09:36:13.909Z",
+      "lastAttempt": "2026-11-14T04:18:22.798Z",
+      "lastSuccess": "2026-11-14T04:18:22.798Z",
       "fetched": 10,
       "notes": "10 vaste plekken"
     },
@@ -56,10 +56,10 @@
       "sourceName": "VisitZwolle",
       "enabled": true,
       "ok": true,
-      "lastAttempt": "2026-11-13T09:36:13.909Z",
-      "lastSuccess": "2026-11-13T09:36:13.909Z",
-      "fetched": 1280,
-      "notes": "1280 activiteit-dagen over 107 dagen; 793 met soort; 1279 met intro (0 detailpagina's opgehaald)"
+      "lastAttempt": "2026-11-14T04:18:22.798Z",
+      "lastSuccess": "2026-11-14T04:18:22.798Z",
+      "fetched": 1265,
+      "notes": "1265 activiteit-dagen over 107 dagen; 783 met soort; 1264 met intro (4 detailpagina's opgehaald)"
     },
     {
       "sourceId": "voorbeeld-ical",
@@ -80,18 +80,18 @@
       "sourceName": "Zwolse Theaters (De Spiegel en Odeon)",
       "enabled": true,
       "ok": true,
-      "lastAttempt": "2026-11-13T09:36:13.909Z",
-      "lastSuccess": "2026-11-13T09:36:13.909Z",
-      "fetched": 219,
-      "notes": "219 voorstellingen van 331 producties (331 in het programma)"
+      "lastAttempt": "2026-11-14T04:18:22.798Z",
+      "lastSuccess": "2026-11-14T04:18:22.798Z",
+      "fetched": 221,
+      "notes": "221 voorstellingen van 330 producties (330 in het programma)"
     }
   ],
   "totals": {
-    "active": 1378,
-    "added": 0,
-    "updated": 0,
-    "cancelled": 0,
-    "expired": 0,
-    "merged": 279
+    "active": 1367,
+    "added": 17,
+    "updated": 19,
+    "cancelled": 1,
+    "expired": 30,
+    "merged": 277
   }
 }
